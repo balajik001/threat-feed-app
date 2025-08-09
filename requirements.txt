@@ -1,0 +1,4 @@
+# In threat-feed-app/requirements.txt
+Flask
+feedparser
+python-dateutil
