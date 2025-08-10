@@ -1,0 +1,55 @@
+<!-- In threat-feed-app/templates/results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/history">&larr; Back to History</a>
+        </nav>
+        <div class="report-container">
+            {% if scan_info %}
+                <div class="report-header">
+                    <h2>{{ scan_info.scan_type }} Scan Results ({{ scan_info.scan_time }})</h2>
+                    <div class="download-buttons">
+                        {% if articles %}
+                        <a href="/download/{{ scan_info.id }}/txt" class="download-btn text">Download Text</a>
+                        <a href="/download/{{ scan_info.id }}/xlsx" class="download-btn excel">Download Excel</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if articles %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Source</th>
+                                <th>Title</th>
+                                <th>Published</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for article in articles %}
+                            <tr>
+                                <td>{{ article.source }}</td>
+                                <td><a href="{{ article.link }}" target="_blank">{{ article.title }}</a></td>
+                                <td>{{ article.published }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="no-results">No relevant threats found in this scan.</p>
+                {% endif %}
+            {% else %}
+                <h2>No results to display.</h2>
+                <p><a href="/">Return to the homepage</a> to start a new scan.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

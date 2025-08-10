@@ -14,40 +14,25 @@
             <p>Real-time scanner for security news and vulnerabilities.</p>
         </header>
 
-        <form action="/" method="post">
-            <button type="submit" class="scan-button">Run New Scan</button>
+        <!-- Flash messages for notifications -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-message">
+              {{ messages[0] }}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <div class="main-actions">
+            <a href="/history" class="btn-main-action history">View Scan History</a>
+        </div>
+
+        <h2>Start a New Scan</h2>
+        <form action="/scan" method="post" class="scan-form">
+            <button type="submit" name="vulnerability_scan" class="scan-button">Vulnerability News Scan</button>
+            <button type="submit" name="vendor_scan" class="scan-button vendor">Vendor News Scan</button>
         </form>
 
-        <div class="report-container">
-            {% if scan_time %}
-                <h2>Scan Results ({{ scan_time }})</h2>
-                {% if articles %}
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Source</th>
-                                <th>Title</th>
-                                <th>Published</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for article in articles %}
-                            <tr>
-                                <td>{{ article.source }}</td>
-                                <td><a href="{{ article.link }}" target="_blank">{{ article.title }}</a></td>
-                                <td>{{ article.published }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                {% else %}
-                    <p class="no-results">No relevant threats found in this scan.</p>
-                {% endif %}
-            {% else %}
-                <h2>Welcome!</h2>
-                <p>Click "Run New Scan" to fetch the latest threat intelligence.</p>
-            {% endif %}
-        </div>
     </div>
 </body>
 </html>

@@ -1,0 +1,9 @@
+# In threat-feed-app/vendors.txt
+Microsoft
+Cisco
+Palo Alto Networks
+Fortinet
+CrowdStrike
+Mandiant
+Google
+Apple
