@@ -1,46 +1,35 @@
 # Cyber Threat Intelligence Feed
 
-A simple but powerful web application built with Python and Flask that scans public RSS feeds from top cybersecurity news sources for specific threat-related keywords. The results are displayed in a clean, easy-to-read web interface.
+A multi-page web application built with Python and Flask that scans public RSS feeds for cybersecurity threats. This version includes persistent scan history, separate results pages, and report exporting.
 
-This project is an excellent demonstration of web scraping, web development with Flask, and data parsing skills for any aspiring cybersecurity professional.
+This project is an excellent demonstration of web development, data parsing, and database management skills for any aspiring cybersecurity professional.
 
 ---
 
 ## Features
 
--   **Real-time Scanning:** Fetches the latest articles from multiple trusted sources.
--   **Keyword-based Filtering:** Scans titles and summaries for keywords like "ransomware", "vulnerability", "CVE-", etc., to filter out noise.
--   **Time-Sensitive:** Only shows articles published within the last 24 hours to ensure relevance.
--   **Simple Web Interface:** Presents the findings in a clean, organized table.
--   **Stateless Design:** Runs on-demand without needing a database, making it lightweight and easy to deploy.
+-   **Dual Scan Modes:** Run a broad "Vulnerability Scan" or a targeted "Vendor Scan".
+-   **Persistent History:** All scans are saved to a lightweight SQLite database, allowing you to review past results.
+-   **Multi-Page Interface:** A clean user experience with separate pages for the homepage, scan history, and detailed results.
+-   **Customizable Vendor List:** Easily edit a text file to control which vendors are monitored.
+-   **Report Exporting:** Download scan results as a clean `.txt` file or a structured `.xlsx` Excel file.
+-   **Database Management:** Includes a simple "Delete History" button to reset the application state.
 
 ---
 
-## How It Works
+## Installation Guide
 
-This application uses a combination of powerful Python libraries to achieve its goal:
-
--   **Flask:** A lightweight web framework used to create the web server and render the HTML pages.
--   **Feedparser:** A robust library for downloading and parsing RSS/Atom feeds.
--   **Dateutil:** A library for easily parsing and handling date/time information from various formats.
-
-When a user clicks the "Run New Scan" button, the Flask application calls the scanner module, which iterates through the list of RSS feeds, checks each article against the time and keyword filters, and returns a list of relevant articles to be displayed on the page.
-
----
-
-## Getting Started
-
-Follow these instructions to get the application running on your local machine.
+Follow these steps carefully to get the application running on your local machine.
 
 ### Prerequisites
 
 -   Python 3 installed on your system.
--   `pip` (Python's package installer), which typically comes with Python.
+-   `pip` (Python's package installer).
 
-### Installation & Execution
+### Step-by-Step Installation
 
 1.  **Clone or Download the Repository**
-    If you have Git, clone the repository. Otherwise, download the source code and place it in a folder named `threat-feed-app`.
+    Place the project files in a folder named `threat-feed-app`.
 
 2.  **Navigate to the Project Directory**
     Open your terminal or command prompt and change into the project folder:
@@ -54,18 +43,40 @@ Follow these instructions to get the application running on your local machine.
     pip install -r requirements.txt
     ```
 
-4.  **Run the Flask Application**
+4.  **Initialize the Database (Crucial First-Time Step)**
+    This version of the app uses a lightweight SQLite database to store your scan history. You must create this file before running the app for the first time.
+    ```bash
+    python database.py
+    ```
+    > **Note:** You only need to run this command once during the initial setup. It will create a `threat_history.db` file in your project folder.
+
+5.  **Run the Flask Application**
     Start the local development server with the following command:
     ```bash
     flask run
     ```
-    You will see output in your terminal indicating that the server is running, including a line like:
-    `* Running on http://127.0.0.1:5000`
-
-5.  **View in Your Browser**
-    Open your web browser and navigate to the address shown in the terminal:
-    [http://127.0.0.1:5000](http://127.0.0.1:5000)
-
-You should now see the web interface. Click the "Run New Scan" button to fetch the latest threat intelligence!
+    You will see output indicating the server is running on `http://127.0.0.1:5000`.
 
 ---
+
+## How to Use the Application
+
+The application now has a more robust, multi-page workflow.
+
+-   **Homepage:** This is the main landing page where you can start a new scan.
+-   **Scan Buttons:** Choose either "Vulnerability News Scan" for general threats or "Vendor News Scan" for news related to specific companies.
+-   **History Page:** Click "View Scan History" on the homepage to see a table of all your past scans, including the type, time, and number of articles found.
+-   **Results Page:** From the history page, click "View Report" on any entry to see the detailed list of articles found in that specific scan.
+-   **Download Reports:** On the results page, you can download the report as a clean Text file or a structured Excel file.
+-   **Delete History:** On the history page, the "Delete All History" button will completely wipe the database and give you a fresh start.
+
+---
+
+## Customizing the Vendor List
+
+You can easily edit the list of vendors that the "Vendor News Scan" looks for.
+
+1.  Open the `vendors.txt` file in your project folder.
+2.  Add, edit, or remove company names.
+3.  Make sure there is one vendor name per line.
+4.  Save the file. The changes will be used the next time you run a Vendor News Scan.

@@ -10,12 +10,19 @@ RSS_FEEDS = {
     'CISA Alerts': 'https://www.cisa.gov/news.xml',
     'Dark Reading': 'https://www.darkreading.com/rss.xml',
     'Krebs on Security': 'https://krebsonsecurity.com/feed/',
+    'SANS ISC': 'https://isc.sans.edu/rssfeed.xml',
+    'Talos Intelligence': 'http://feeds.feedburner.com/talos',
+    'Mandiant Research': 'https://www.mandiant.com/resources/blog/rss.xml',
+    'Unit 42 (Palo Alto)': 'https://unit42.paloaltonetworks.com/feed/',
 }
 
 VULNERABILITY_KEYWORDS = [
-    "zero-day", "ransomware", "vulnerability", "CVE-",
-    "exploit", "data breach", "malware", "APT", "phishing",
-    "remote code execution", "RCE", "critical flaw"
+    "zero-day", "zero day", "ransomware", "vulnerability", "CVE-",
+    "exploit", "data breach", "malware", "APT", "backdoor", "rootkit",
+    "phishing", "supply chain attack", "botnet", "DDoS", "leak",
+    "nation-state", "cyberattack", "trojan", "CISA warning", "escalation",
+    "remote code execution", "RCE", "privilege escalation", "vulnerable",
+    "critical flaw", "patch released", "emergency update"
 ]
 
 def get_vendor_keywords():
